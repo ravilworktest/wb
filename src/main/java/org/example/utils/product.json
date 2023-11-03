@@ -1,0 +1,50 @@
+{
+  "__sort": 38350,
+  "ksort": 1,
+  "time1": 2,
+  "time2": 44,
+  "dist": 807,
+  "id": 30254129,  // Id карточки
+  "root": 159675770,
+  "kindId": 2,
+  "subjectId": 185,
+  "subjectParentId": 1,
+  "name": "Топ-бра кроп-топ",
+  "brand": "CHELEBI/Челеби-Текстиль",
+  "brandId": 89363,
+  "siteBrandId": 99363,
+  "supplier": "CHELEBI/Челеби-Текстиль",
+  "supplierId": 68318, //seller id
+  "sale": 33,
+  "priceU": 68000,  //текущая цена
+  "salePriceU": 45500, //цена стартовая
+  "logisticsCost": 0,
+  "saleConditions": 0,
+  "returnCost": 0,
+  "pics": 5,
+  "rating": 5,
+  "reviewRating": 4.8,
+  "feedbacks": 1943,
+  "volume": 12,
+  "viewFlags": 0,
+  "colors": [
+    {
+      "name": "зеленый",
+      "id": 32768
+    }
+  ],
+  "sizes": [
+    {
+      "name": "44-46",
+      "origName": "44-46",
+      "rank": 275620,
+      "optionId": 66832164,
+      "returnCost": 0,
+      "wh": 159402,
+      "sign": "7TleyRfjQ+xdvQn9VcH1SDTuXzA=",
+      "payload": "zjZBZDGkzQEkx/sDkr/UH+P2oYpvDnyDmFRPRVHIvcWXqELL1J2vSYVYK43uhrBXCLc"
+    }
+  ],
+  "diffPrice": false,
+  "log": {}
+}
