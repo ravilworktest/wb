@@ -14,7 +14,7 @@ public class CompareData {
      * @param dbData data from database
      * @return List of new cards
      */
-    public List<Product> findNewProductss(List<Product> browserData, List<Product> dbData) {
+    public List<Product> findNewProducts(List<Product> browserData, List<Product> dbData) {
         List<Product> newProducts = new ArrayList<>();
         boolean isFinded;
 

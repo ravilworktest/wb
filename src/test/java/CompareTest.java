@@ -29,7 +29,7 @@ public class CompareTest {
         expectedData.add(new Product(333, 1000, 106, "dblabel", null));
 
         CompareData compareData = new CompareData();
-        List<Product> actualData = compareData.findNewProductss(browserData, dbData);
+        List<Product> actualData = compareData.findNewProducts(browserData, dbData);
 
         assertEquals(expectedData.size(), actualData.size());
         assertEquals(expectedData.getFirst(), actualData.getFirst());
