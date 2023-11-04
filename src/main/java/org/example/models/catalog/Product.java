@@ -43,8 +43,8 @@ public class Product {
     private String promoTextCat;
     private Integer volume;
     private Integer viewFlags;
-    private List<Color> colors = new ArrayList<Color>();
-    private List<Size> sizes = new ArrayList<Size>();
+    private List<Color> colors = new ArrayList<>();
+    private List<Size> sizes = new ArrayList<>();
     private Boolean diffPrice;
     private Object log;
     private Boolean isNew;

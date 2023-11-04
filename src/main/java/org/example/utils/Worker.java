@@ -14,7 +14,7 @@ public class Worker extends Thread {
 
    @Override
     public void run(){
-       String sellerId = null;
+       String sellerId;
        System.out.println("Worker started " + Thread.currentThread());
        do {
            sellerId = Seller.getNext();
