@@ -66,6 +66,13 @@ public class Product {
         return priceHistory;
     }
 
+    public String getPriceHistoryInRub() {
+        return Arrays.stream(priceHistory.split(","))
+                .map(v -> Integer.parseInt(v) / 100)
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+    }
+
     public List<Integer> getPriceHistoryAsInt(){
         return Arrays.stream(priceHistory.split(","))
                 .map(Integer::parseInt)
@@ -206,6 +213,9 @@ public class Product {
     }
     public Integer getSalePriceU() {
         return salePriceU;
+    }
+    public Integer getSalePriceUInRub() {
+        return salePriceU / 100;
     }
     public void setSalePriceU(Integer salePriceU) {
         this.salePriceU = salePriceU;

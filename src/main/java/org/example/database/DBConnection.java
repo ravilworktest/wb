@@ -126,9 +126,9 @@ public class DBConnection {
             for (Product product : products) {
                 stmt.setInt(1, product.getSupplierId());
                 stmt.setInt(2, product.getId());
-                stmt.setInt(3, product.getSalePriceU());
+                stmt.setInt(3, product.getSalePriceUInRub());
                 stmt.setString(4, product.getName());
-                stmt.setString(5, product.getPriceHistory());
+                stmt.setString(5, product.getPriceHistoryInRub());
                 stmt.setDouble(6, product.getDiscount());
                 stmt.setDouble(7, product.getAvgDiscount());
                 stmt.addBatch();

@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Worker extends Thread {
-
     DBConnection connection = new DBConnection();
 
    @Override
@@ -25,7 +24,6 @@ public class Worker extends Thread {
            }
            proccess(Collections.singletonList(sellerId));
        }while (sellerId != null);
-
     }
 
     public void proccess(List<String> sellers){
@@ -36,7 +34,7 @@ public class Worker extends Thread {
         List<Product> dbData = connection.selectProductBySeller(sellers);
 
         CompareData compareData = new CompareData();
-        List<Product> newCards = compareData.findNewProductss(browserData, dbData);
+        List<Product> newCards = compareData.findNewProducts(browserData, dbData);
         List<Product> cardWithChangedPrice = compareData.findProductsWithChangedPrice(browserData, dbData);
         List<Product> discountedProducts = compareData.calculateDiscount(cardWithChangedPrice);
         connection.insertDiscountProducts(discountedProducts);

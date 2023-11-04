@@ -13,12 +13,25 @@ public class Client {
     HttpClient client = HttpClient.newHttpClient();
 
     public HttpResponse<String> send(String url) {
+        HttpResponse<String> response = null;
+        int repeatCount = 1;
 
-        var request = HttpRequest.newBuilder(
-                        //  URI.create("https://catalog.wb.ru/sellers/catalog?TestGroup=sim_goods_srch_infra&TestID=323&appType=1&curr=rub&dest=-1257786&sort=popular&spp=29&supplier=68318"))
-                        //   URI.create("https://catalog.wb.ru/sellers/catalog?curr=rub&dest=-1257786&supplier=68318"))
-                        //  URI.create("https://catalog.wb.ru/sellers/filters?curr=rub&dest=-1257786&supplier=68318"))
-                 URI.create(url))
+        for (int i = 0; i < repeatCount; i++) {
+            response = sendRequest(url);
+            if (response.statusCode() != 200) {
+                System.out.println("Request: " + url);
+                System.out.println("HTTP status: " + response.statusCode());
+                System.out.println("Response data: " + response.body());
+            } else {
+                break;
+            }
+        }
+
+        return response;
+    }
+
+    public HttpResponse<String> sendRequest(String url) {
+        var request = HttpRequest.newBuilder(URI.create(url))
                 .GET()
                 .version(HttpClient.Version.HTTP_1_1)
                 .header("Accept-Encoding", "deflate")
@@ -37,13 +50,7 @@ public class Client {
                 .build();
 
         try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if(response.statusCode() != 200) {
-                System.out.println("Request: " + url);
-                System.out.println("HTTP status: " + response.statusCode());
-                System.out.println("Response data: " + response.body());
-            }
-            return response;
+            return client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

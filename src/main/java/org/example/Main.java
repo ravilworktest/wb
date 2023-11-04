@@ -15,7 +15,8 @@ import static org.example.utils.Util.stopTimer;
 public class Main {
 
     public static void main(String[] args) {
-        threadTest();
+       // threadTest();
+        debug();
     }
 
     public static void threadTest(){
@@ -26,9 +27,10 @@ public class Main {
 
     public static void debug(){
         PageLoader pl = new PageLoader();
-        long t = startTimer();
+
         List<String> sellers = new ArrayList<>();
-        sellers.add("10598");
+        sellers.add("276");
+      /*  sellers.add("10598");
         sellers.add("276");
         sellers.add("466700");
         sellers.add("65605");
@@ -46,7 +48,9 @@ public class Main {
         sellers.add("48941");  // нет страниц
         sellers.add("974");    // OMSA > 9 страниц
         sellers.add("23266");  // РИВ ГОШ > 9 страниц
-        sellers.add("5359");   // ТВОЕ > 9 страниц
+        sellers.add("5359");   // ТВОЕ > 9 страниц*/
+
+        long t = startTimer();
         List<Product> browserData = pl.loadBySeller(sellers);
         stopTimer(t,"GET PAGES");
 
@@ -59,7 +63,7 @@ public class Main {
 
         CompareData compareData = new CompareData();
         t = startTimer();
-        List<Product> newCards = compareData.findNewProductss(browserData, dbData);
+        List<Product> newCards = compareData.findNewProducts(browserData, dbData);
         System.out.println("newCards: " + newCards.size());
         stopTimer(t, "FIND_NEW_CARD");
 
