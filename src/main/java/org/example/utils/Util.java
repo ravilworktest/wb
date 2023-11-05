@@ -2,7 +2,6 @@ package org.example.utils;
 
 import org.example.models.catalog.Product;
 
-import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.counting;
@@ -33,12 +32,12 @@ public class Util {
                 .entrySet()
                 .forEach(e -> System.out.printf("Seller: %s cards: %s\r\n", e.getKey(), e.getValue()));
     }
-    public static void printProductCount(List<Product> products) {
+   /* public static void printProductCount(List<Product> products) {
         products.stream()
                 .collect(groupingBy(Product::getSupplier, counting()))
                 .entrySet()
                 .forEach(e -> System.out.printf("Seller: %s cards: %s\r\n", e.getKey(), e.getValue()));
-    }
+    }*/
 
     public  static int getRandomInt(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);

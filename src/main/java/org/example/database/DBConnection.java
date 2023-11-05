@@ -3,22 +3,20 @@ package org.example.database;
 import org.example.models.catalog.Product;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 public class DBConnection {
-    static final String CONNECTION_STRING = "jdbc:mysql://%s:%s/%s";
-    static final String HOST = "localhost";
-    static final String PORT = "3306";
-    static final String DB = "test";
-    static final String USER = "sqluser";
-    static final String PASS = "12345";
-    static final String CARD_TABLE = "card";
-    static final String SELL_TABLE = "sell";
+    private static final String CONNECTION_STRING = "jdbc:mysql://%s:%s/%s";
+    private static final String HOST = "localhost";
+    private static final String PORT = "3306";
+    private static final String DB = "test";
+    private static final String USER = "sqluser";
+    private static final String PASS = "12345";
+    private static final String CARD_TABLE = "card";
+    private static final String SELL_TABLE = "sell";
     private Connection connection = null;
 
     public void dbConnect() {
@@ -31,6 +29,14 @@ public class DBConnection {
         }
         createTable();
         createTableSell();
+    }
+
+    public void dbClose(){
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void createTable() {
@@ -73,7 +79,7 @@ public class DBConnection {
 
     public void updateProduct(List<Product> products) {
         String sql = "UPDATE "+ CARD_TABLE +" SET seller=?, article=?, price=?, label=?, priceHistory=? " +
-                "WHERE seller = ? and article = ?";
+                "WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             connection.setAutoCommit(false);
@@ -85,8 +91,7 @@ public class DBConnection {
                 stmt.setInt(3, product.getSalePriceU());
                 stmt.setString(4, product.getName());
                 stmt.setString(5, product.getPriceHistory());
-                stmt.setInt(6, product.getSupplierId());
-                stmt.setInt(7, product.getId());
+                stmt.setLong(6, product.getDbRecordId());
                 stmt.addBatch();
                 count++;
 
@@ -158,34 +163,10 @@ public class DBConnection {
         }
     }
 
-    public List<Product> readProduct() {
-        List<Product> products = new ArrayList<>();
-        String query = "SELECT seller, article, price, label, priceHistory FROM " + CARD_TABLE;
-
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                products.add(new Product(
-                        rs.getInt("seller"),
-                        rs.getInt("article"),
-                        rs.getInt("price"),
-                        rs.getString("label"),
-                        rs.getString("priceHistory")));
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return products;
-    }
-
     public Map<Integer, Product> selectProductBySeller(List<String> sellerId) {
         Map<Integer, Product> productMap = new ConcurrentHashMap<>();
         String query = String.format(
-                "SELECT seller, article, price, label, priceHistory" +
+                "SELECT id, seller, article, price, label, priceHistory" +
                         " FROM "+ CARD_TABLE +
                         " WHERE seller IN (%s)", String.join(",", sellerId));
 
@@ -195,6 +176,7 @@ public class DBConnection {
 
             while (rs.next()) {
                 Product product = new Product(
+                        rs.getLong("id"),
                         rs.getInt("seller"),
                         rs.getInt("article"),
                         rs.getInt("price"),

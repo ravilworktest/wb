@@ -6,7 +6,9 @@ import org.example.models.filters.RootFilter;
 import org.example.utils.JSONUtil;
 
 import java.net.http.HttpResponse;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -18,6 +20,8 @@ public class PageLoader {
     private Client client = new Client();
     private JSONUtil jsonUtil = new JSONUtil();
     private String FILTER_URL = "https://catalog.wb.ru/sellers/filters?curr=rub&dest=-1257786&supplier=%s";
+    //  private String CATALOG_URL = "https://catalog.wb.ru/sellers/catalog?curr=rub&dest=-1257786&page=%s&supplier=%s";
+
     private String CATALOG_URL = "https://catalog.wb.ru/sellers/catalog?TestGroup=no_test&TestID=no_test&appType=1&curr=rub&dest=-1257786&page=%s&sort=popular&spp=33&supplier=%s";
 
     public Map<Integer, Product> loadBySeller(List<String> sellerId) {

@@ -8,6 +8,7 @@ import org.example.pageLoader.PageLoader;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Worker extends Thread {
     DBConnection connection = new DBConnection();
@@ -27,20 +28,22 @@ public class Worker extends Thread {
     }
 
     public void proccess(List<String> sellers){
-      /*  connection.dbConnect();
+        connection.dbConnect();
 
         PageLoader pl = new PageLoader();
-        List<Product> browserData = pl.loadBySeller(sellers);
-        List<Product> dbData = connection.selectProductBySeller(sellers);
+        Map<Integer,Product> browserData = pl.loadBySeller(sellers);
+        Map<Integer,Product> dbData = connection.selectProductBySeller(sellers);
 
         CompareData compareData = new CompareData();
         List<Product> newCards = compareData.findNewProducts(browserData, dbData);
         List<Product> cardWithChangedPrice = compareData.findProductsWithChangedPrice(browserData, dbData);
         List<Product> discountedProducts = compareData.calculateDiscount(cardWithChangedPrice);
-        connection.insertDiscountProducts(discountedProducts);
         List<Product> cardsWhichAreNoLongerOnSale = compareData.findProductsWhichAreNoLongerOnSale(browserData, dbData);
+
         connection.insertProducts(newCards);
-        connection.updateProduct(cardWithChangedPrice);*/
+        connection.updateProduct(cardWithChangedPrice);
+        connection.insertDiscountProducts(discountedProducts);
+        connection.dbClose();
     }
 
 

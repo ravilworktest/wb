@@ -7,7 +7,6 @@ import org.example.pageLoader.PageLoader;
 import org.example.utils.Worker;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +16,12 @@ import static org.example.utils.Util.stopTimer;
 public class Main {
 
     public static void main(String[] args) {
-       // threadTest();
-        debug();
+      threadTest();
+        //   debug();
     }
 
     public static void threadTest(){
-        for(int i = 0; i < 6; i ++ ){
+        for(int i = 0; i < 4; i ++ ){
              new Worker().start();
         }
     }
@@ -35,8 +34,8 @@ public class Main {
         List<String> sellers = new ArrayList<>();
 
         sellers.add("10598");
-       sellers.add("276");
-        sellers.add("466700");
+        sellers.add("276");
+     //   sellers.add("466700");
       /*     sellers.add("65605");
         sellers.add("51123");
         sellers.add("45298");
@@ -91,6 +90,8 @@ public class Main {
         t = startTimer();
         connection.insertDiscountProducts(discountedProducts);
         stopTimer(t, "INSERT SELL CARDS");
+
+        connection.dbClose();
 
     }
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
@@ -105,23 +106,34 @@ public class CompareTest {
         assertEquals(33.33d, actualData.getLast().getDiscount());
         assertEquals(42.86, actualData.getLast().getAvgDiscount());
     }
-*/
+
     @Test
     public void writeUpdateTest() {
         List<Product> insertData = new ArrayList<>();
-        List<Product> updateData = new ArrayList<>();
+       // List<Product> updateData = new ArrayList<>();
 
         for(int i = 0; i < 1000; i ++ ){
             insertData.add(new Product(101, i, 111, "testInsert", null));
-            updateData.add(new Product(101, i, 333, "testUpdate", "222"));
+           // updateData.add(new Product(101, i, 333, "testUpdate", "222"));
         }
 
 
         DBConnection c = new DBConnection();
         c.dbConnect();
+
         long t = startTimer();
         c.insertProducts(insertData);
         stopTimer(t,"INSERT:");
+
+        Map<Integer, Product> productMap = c.selectProductBySeller(List.of("101"));
+
+        List<Product> updateData = productMap.values().stream().toList();
+        for(Product p : updateData){
+            p.setSalePriceU(999);
+            p.setPriceHistory(111);
+            p.setName("updated");
+        }
+
 
         t = startTimer();
         c.updateProduct(updateData);
@@ -131,4 +143,6 @@ public class CompareTest {
         System.out.println("");
 
     }
+
+  */
 }

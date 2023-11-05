@@ -7,7 +7,7 @@ public class Seller {
     private static List<String> sellers = new ArrayList<>();
     private static boolean isLoad = false;
 
-    public static String getNext() {
+    public synchronized static String getNext() {
         loadSellersList();
         if (sellers.isEmpty()) {
             return null;

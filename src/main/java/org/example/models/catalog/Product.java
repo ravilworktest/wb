@@ -51,16 +51,26 @@ public class Product {
     private String priceHistory;
     private Double discount;
     private Double avgDiscount;
+    private Long dbRecordId;
 
     public Product(){}
 
-    public Product(int seller, int article, int price, String label, String priceHistory){
+    public Product(long dbRecordId, int seller, int article, int price, String label, String priceHistory){
+        this.dbRecordId = dbRecordId;
         this.supplierId = seller;
         this.id = article;
         this.salePriceU = price;
         this.name = label;
         this.priceHistory = priceHistory;
     }
+
+   /* public Product(int seller, int article, int price, String label, String priceHistory){
+        this.supplierId = seller;
+        this.id = article;
+        this.salePriceU = price;
+        this.name = label;
+        this.priceHistory = priceHistory;
+    }*/
 
     public String getPriceHistory() {
         return priceHistory;
@@ -339,6 +349,14 @@ public class Product {
 
     public void setAvgDiscount(Double avgDiscount) {
         this.avgDiscount = avgDiscount;
+    }
+
+    public Long getDbRecordId() {
+        return dbRecordId;
+    }
+
+    public void setDbRecordId(Long dbRecordId) {
+        this.dbRecordId = dbRecordId;
     }
 
     public String print() {
