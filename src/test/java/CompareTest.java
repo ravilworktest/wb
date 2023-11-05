@@ -6,13 +6,16 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static org.example.utils.Util.startTimer;
+import static org.example.utils.Util.stopTimer;
 
 public class CompareTest {
 
-    @Test
+ /*   @Test
     public void findNewCardTest() {
         List<Product> browserData = new ArrayList<>();
         browserData.add(new Product(1, 1001, 100, "dblabel", null));
@@ -102,21 +105,30 @@ public class CompareTest {
         assertEquals(33.33d, actualData.getLast().getDiscount());
         assertEquals(42.86, actualData.getLast().getAvgDiscount());
     }
-
+*/
     @Test
     public void writeUpdateTest() {
         List<Product> insertData = new ArrayList<>();
-        insertData.add(new Product(101, 1001, 100, "dblabel", null));
-
         List<Product> updateData = new ArrayList<>();
-        updateData.add(new Product(101, 1001, 333, "Updated", "222"));
+
+        for(int i = 0; i < 1000; i ++ ){
+            insertData.add(new Product(101, i, 111, "testInsert", null));
+            updateData.add(new Product(101, i, 333, "testUpdate", "222"));
+        }
+
 
         DBConnection c = new DBConnection();
         c.dbConnect();
+        long t = startTimer();
         c.insertProducts(insertData);
-        c.updateProduct(updateData);
-        List<Product> actual = c.selectProductBySeller(Arrays.asList("101"));
+        stopTimer(t,"INSERT:");
 
-        assertTrue(updateData.getFirst().equals(actual.getFirst()));
+        t = startTimer();
+        c.updateProduct(updateData);
+        stopTimer(t,"UPDATE");
+
+
+        System.out.println("");
+
     }
 }

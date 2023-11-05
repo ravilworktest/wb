@@ -3,6 +3,7 @@ package org.example.utils;
 import org.example.models.catalog.Product;
 
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
@@ -25,6 +26,13 @@ public class Util {
         System.out.println(msg + " " + ((end - start) / 1000d) % 60 + " seconds");
     }
 
+    public static void printProductCount(Map<Integer,Product> products) {
+        products.entrySet().stream()
+                .map(Map.Entry::getValue)
+                .collect(groupingBy(Product::getSupplier, counting()))
+                .entrySet()
+                .forEach(e -> System.out.printf("Seller: %s cards: %s\r\n", e.getKey(), e.getValue()));
+    }
     public static void printProductCount(List<Product> products) {
         products.stream()
                 .collect(groupingBy(Product::getSupplier, counting()))

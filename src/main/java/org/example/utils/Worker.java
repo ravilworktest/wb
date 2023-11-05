@@ -27,7 +27,7 @@ public class Worker extends Thread {
     }
 
     public void proccess(List<String> sellers){
-        connection.dbConnect();
+      /*  connection.dbConnect();
 
         PageLoader pl = new PageLoader();
         List<Product> browserData = pl.loadBySeller(sellers);
@@ -40,7 +40,7 @@ public class Worker extends Thread {
         connection.insertDiscountProducts(discountedProducts);
         List<Product> cardsWhichAreNoLongerOnSale = compareData.findProductsWhichAreNoLongerOnSale(browserData, dbData);
         connection.insertProducts(newCards);
-        connection.updateProduct(cardWithChangedPrice);
+        connection.updateProduct(cardWithChangedPrice);*/
     }
 
 

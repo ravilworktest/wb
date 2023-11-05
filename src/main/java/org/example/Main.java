@@ -7,7 +7,9 @@ import org.example.pageLoader.PageLoader;
 import org.example.utils.Worker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.example.utils.Util.startTimer;
 import static org.example.utils.Util.stopTimer;
@@ -27,13 +29,15 @@ public class Main {
 
     public static void debug(){
         PageLoader pl = new PageLoader();
+        DBConnection connection = new DBConnection();
+        connection.dbConnect();
 
         List<String> sellers = new ArrayList<>();
-        sellers.add("276");
-      /*  sellers.add("10598");
-        sellers.add("276");
+
+        sellers.add("10598");
+       sellers.add("276");
         sellers.add("466700");
-        sellers.add("65605");
+      /*     sellers.add("65605");
         sellers.add("51123");
         sellers.add("45298");
         sellers.add("1090976");
@@ -51,14 +55,11 @@ public class Main {
         sellers.add("5359");   // ТВОЕ > 9 страниц*/
 
         long t = startTimer();
-        List<Product> browserData = pl.loadBySeller(sellers);
+        Map<Integer,Product> browserData = pl.loadBySeller(sellers);
         stopTimer(t,"GET PAGES");
 
-        DBConnection connection = new DBConnection();
-        connection.dbConnect();
-
         t = startTimer();
-        List<Product> dbData = connection.selectProductBySeller(sellers);
+        Map<Integer,Product> dbData = connection.selectProductBySeller(sellers);
         stopTimer(t, "SELECT_BY_SELLER");
 
         CompareData compareData = new CompareData();
@@ -71,8 +72,7 @@ public class Main {
         List<Product> cardWithChangedPrice = compareData.findProductsWithChangedPrice(browserData, dbData);
         System.out.println("cardWithChangedPrice: " + cardWithChangedPrice.size());
         List<Product> discountedProducts = compareData.calculateDiscount(cardWithChangedPrice);
-
-        discountedProducts.forEach(c -> System.out.println(c.print()));
+        System.out.println("cardWithDiscount: " + discountedProducts.size());
         stopTimer(t, "FIND_CARD_WITH_CHANGED_PRICE");
 
         t = startTimer();
@@ -87,6 +87,11 @@ public class Main {
         t = startTimer();
         connection.updateProduct(cardWithChangedPrice);
         stopTimer(t, "UPDATE");
+
+        t = startTimer();
+        connection.insertDiscountProducts(discountedProducts);
+        stopTimer(t, "INSERT SELL CARDS");
+
     }
 }
 
